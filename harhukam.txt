@@ -1,0 +1,8 @@
+<!--  @if(is_null($users))
+        <p>No Dp Found !</p>
+    @else 
+@foreach ($users as $user)
+<img src="{{asset($user->upic)}}"  style="width: 60px;">
+@endforeach
+
+@endif -->
