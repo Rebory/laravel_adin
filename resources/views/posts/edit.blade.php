@@ -21,7 +21,9 @@
 
 <div class="row">
 <div class="col-sm-9">
-w
+  <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 <div class="form-group">
 <label>Title <span class="tx-danger">*</span></label>
 <input type="text" name="title" class="form-control" value="{{ $post->title }}" placeholder="Title" data-parsley-class-handler="#fnWrapper" required>
