@@ -99,8 +99,12 @@ return redirect()->route('sliders.index')->with('flash_message_success','Update 
 public function destroy(Slider $slider)
 {
 
-$slider->delete();
-//Category::delete();
+//$slider->delete();
+    $path = $slider->banner;
+ if(file_exists($path)){
+        @unlink($path);
+    }
+    $slider->delete();
 return redirect()->route('sliders.index')->with('flash_message_success','Delete Successfully!');
 }
 

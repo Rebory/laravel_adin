@@ -76,10 +76,7 @@ else
 $path = 'images/posts/'.'noimage.png';
 }
 
-// $title = $request->input('title');
-// $sluge = $this->slugifyUrl($title);
-// $title = $request->input('title');
-// $slug = str_slug($title);
+
 
 $str = strtolower($request->title);
 $slug = preg_replace('/\s+/', '-', $str);
@@ -111,8 +108,7 @@ request()->validate([
      'title' => 'required',
      'description' => 'required',
      'image' => 'image|max:2048',
-     'category' => 'required',
-     'publish' => 'required'
+     'category' => 'required'
 
 ]);
 
@@ -137,8 +133,6 @@ $post->description   = $request->description;
 $post->image         = $path;
 $post->category      = $request->category;
 $post->publish       = $request->publish;
-$post->adminkey      = Auth::user()->id;
-$post->author        = Auth::user()->name;
 $post->save();
 
 return redirect()->route('posts.index')->with('flash_message_success','Update Successfully!');
@@ -148,8 +142,13 @@ return redirect()->route('posts.index')->with('flash_message_success','Update Su
 public function destroy(Post $post)
 {
 
-$post->delete();
-//Category::delete();
+//$post->delete();
+    $path = $post->image;
+ if(file_exists($path)){
+        @unlink($path);
+    }
+    $post->delete();
+
 return redirect()->route('posts.index')->with('flash_message_success','Delete Successfully!');
 }
 
